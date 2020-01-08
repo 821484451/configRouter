@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>test</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://cdn.bootcss.com/axios/0.19.0-beta.1/axios.min.js"></script>
+    <style>
+       table,th,td{
+           border: 1px solid #ccc;
+           border-collapse: collapse;
+       }
+       th,td{
+           padding: 10px 20px;
+       }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <label for="param">请求参数：</label>
+        <input type="text" id="param" v-model="params">
+        <label for="param">userName：</label>
+        <input type="text" v-model="userName"/>    
+        <label for="param">sex：</label>
+        <input type="text" v-model="sex"/>
+        <label for="param">age：</label>
+        <input type="text" v-model="age"/>     
+        <button @click="get()">get请求</button>
+        <button @click="post()">post请求</button>
+        <button @click="add()">add请求</button>
+        <div>
+            返回的数据: {{res}}
+        </div>
+        <table v-if="list">
+            <thead>
+                <tr>
+                    <th v-for="(item, index) in keyArr" :key="index">{{item}}</th>
+                    <th >操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="(item,index ) in list" :key="item.id">
+                    <td v-for="(item1,index ) in keyArr" :key="index">{{item[item1]}}</td>
+                    <td  >
+                        <a @click="del(item.id)" href="javascript:;"  style="color: red;" >删除</a>
+                        <a @click="update(item.id)" href="javascript:;"  style="color: red;" >更新</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+<script>
+    var app = new Vue({
+        el: "#app",
+        data: {
+            params: '',
+            res: '',
+            keyArr: [],
+            list: null,
+            userName: '',
+            age: '',
+            sex: ''
+
+        },
+        methods: {
+            get(){
+                axios.get('/list',{params: {
+                   id: 52
+                }}).then(res => {
+                    this.list = res.data.data;
+                    this.keyArr = Object.keys(res.data.data[0]);
+                })
+            },
+            post(){
+                axios.post('/list',{params: {
+                    userName: this.params
+                }}).then(res => {
+                    this.res = res.data;
+                    
+                })
+            },
+            del(id){
+                axios.post('/delete',{
+                    id: id
+                }).then(res => {
+                    this.res = res.data;
+                    this.get();
+                })
+            },
+            add(){
+                axios.post('/add',{
+                    userName: this.userName,
+                    age: this.age,
+                    sex: this.sex
+                }).then(res => {
+                    this.res = res.data;
+                    this.get();
+                }) 
+            },
+            update(id){
+                axios.post('/update',{
+                    userName: this.userName,
+                    age: this.age,
+                    sex: this.sex,
+                    id: id
+                }).then(res => {
+                    this.res = res.data;
+                    this.get();
+                }) 
+            }
+        },
+        mounted(){
+
+        }
+    })
+
+</script>
+</html>

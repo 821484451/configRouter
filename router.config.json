@@ -1,0 +1,32 @@
+{
+    "routerList" : [
+        { 
+            "name": "list", 
+            "type": "get", 
+            "sql": "SELECT * FROM `test`" , 
+            "handleType": "query"
+        },
+        { 
+            "name": "delete", 
+            "type": "post", 
+            "sql": "Delete FROM `test`", 
+            "params": ["id"], 
+            "handleType": "delete"
+        },
+        { 
+            "name": "add", 
+            "type": "post", 
+            "sql": "INSERT INTO test", 
+            "updateField": ["userName", "sex", "age"], 
+            "handleType": "add"
+        },
+        { 
+            "name": "update", 
+            "type": "post", 
+            "sql": "UPDATE test SET ", 
+            "updateField": ["userName", "sex", "age"], 
+            "params": ["id"],  
+            "handleType": "update"
+        }
+    ]
+}
