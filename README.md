@@ -51,3 +51,5 @@ router.config.json
 |params|请求的时候where的判断条件|
 |handleType|数据库的操作类型，分为增删查改，对应的参数：add, delete, query, update|
 
+## 代码较简单，只是利用nodejs监测配置文件，根据配置文件信息生成路由接口，但有很多可扩展以及局限性
+
