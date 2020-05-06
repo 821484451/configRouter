@@ -38,6 +38,7 @@ function create () {
                             bSql = bSql.slice(0,-1) + ")";
                             sql += (aSql +  " VALUES " +  bSql);
                         }
+                        break;
                     case "update":
                         if (item.updateField) {
                             item.updateField.map(item => {
@@ -45,7 +46,9 @@ function create () {
                             });
                             sql = sql.slice(0, -1);
                         }
+                        break;
                     default:
+                        break;
                           
                 };
                 if (item.params) {

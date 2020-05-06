@@ -7,6 +7,12 @@
             "handleType": "query"
         },
         { 
+            "name": "list", 
+            "type": "post", 
+            "sql": "SELECT * FROM `test`" , 
+            "handleType": "query"
+        },
+        { 
             "name": "delete", 
             "type": "post", 
             "sql": "Delete FROM `test`", 
